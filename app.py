@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory,render_template
 import hashlib
 import os
 
@@ -19,6 +19,10 @@ def generate_avatar_for_name_and_gender(name, gender):
     avatar_index = int(hash_hex, 16) % len(avatar_files_male if gender == "male" else avatar_files_female)
     avatar_files = avatar_files_male if gender == "male" else avatar_files_female
     return avatar_files[avatar_index]
+
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 @app.route('/generate_avatar/<gender>/<name>')
 def generate_avatar(gender, name):
